@@ -1,3 +1,5 @@
+test/coverage/
+
 Ask Mentor
   I want to set the key for the test, but dont want to have to change it later
   when Im running the file. How can I set that up?
@@ -36,16 +38,12 @@ Ask Mentor
 
 
 2.Build any of the classes that I can understand in isolation without building other things
-    ie.: The date offsets
-          for_date(date)
-            use hash:
 
           The RotationCalculator
           for_key(key)
             hash:
             :a =>14
             :b => 16....
-         The key
 
 3. character map = [a,b,c,d....x,y,z,0,1,2,3...8,9, ,. ,,]
                                                   space, period, comma
