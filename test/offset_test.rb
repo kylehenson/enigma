@@ -3,9 +3,11 @@ require 'minitest/pride'
 require_relative '../lib/offset'
 
 class OffsetTest < Minitest::Test
+  attr_accessor :offset
 
   def setup
-    @offset = Offset.new
+    date = "020315"
+    @offset = Offset.new(date)
   end
 
   def test_it_exists
@@ -13,57 +15,27 @@ class OffsetTest < Minitest::Test
   end
 
   def test_it_squares_date
-    date = "020315"
-
-    assert_equal 412699225, @offset.square(date)
+    assert_equal 412699225, offset.square
   end
 
   def test_it_finds_last_four_digits_of_squared_date
-    date = "020315"
-
-    squared = @offset.square(date)
-
-    assert_equal ["9", "2", "2", "5"], @offset.offset_sequence(squared)
+    assert_equal [9, 2, 2, 5], offset.offset_sequence
   end
 
   def test_it_can_find_offset_A
-    date = "020315"
-
-    squared = @offset.square(date)
-
-    digits = squared.to_s.chars[-4..-1]
-
-    assert_equal 9, @offset.offset_a(digits)
+    assert_equal 9, offset.offset_a
   end
 
   def test_it_can_find_offset_B
-    date = "020315"
-
-    squared = @offset.square(date)
-
-    digits = squared.to_s.chars[-4..-1]
-
-    assert_equal 2, @offset.offset_b(digits)
+    assert_equal 2, offset.offset_b
   end
 
   def test_it_can_find_offset_C
-    date = "020315"
-
-    squared = @offset.square(date)
-
-    digits = squared.to_s.chars[-4..-1]
-
-    assert_equal 2, @offset.offset_c(digits)
+    assert_equal 2, offset.offset_c
   end
 
   def test_it_can_find_offset_D
-    date = "020315"
-
-    squared = @offset.square(date)
-
-    digits = squared.to_s.chars[-4..-1]
-
-    assert_equal 5, @offset.offset_d(digits)
+    assert_equal 5, offset.offset_d
   end
 
 end

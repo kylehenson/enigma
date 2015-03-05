@@ -1,34 +1,35 @@
-# Consider the date in the format DDMMYY, like 020315
-# Square the numeric form (412699225) and find the last four digits (9225)
-# The first digit is the "A offset" (9)
-# The second digit is the "B offset" (2)
-# The third digit is the "C offset" (2)
-# The fourth digit is the "D offset" (5)
-
 class Offset
+  attr_accessor :offset_a,
+                :offset_b,
+                :offset_c,
+                :offset_d
 
-  def square(date)
-    squared = date.to_i * date.to_i
+  def initialize(date)
+    @date = date
+    create
   end
 
-  def offset_sequence(squared)
-    digits = squared.to_s.chars[-4..-1]
+  def create
+    digits = offset_sequence
+
+    @offset_a = digits.shift
+    @offset_b = digits.shift
+    @offset_c = digits.shift
+    @offset_d = digits.shift
   end
 
-  def offset_a(digits)
-    digits[0].to_i
+  def square
+    @date.to_i * @date.to_i
   end
 
-  def offset_b(digits)
-    digits[1].to_i
+  def chars_to_ints(chars)
+    chars.map do |element|
+      element.to_i
+    end
   end
 
-  def offset_c(digits)
-    digits[2].to_i
+  def offset_sequence
+    chars = square.to_s.chars[-4..-1]
+    chars_to_ints(chars)
   end
-
-  def offset_d(digits)
-    digits[3].to_i
-  end
-  
 end
