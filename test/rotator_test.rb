@@ -27,7 +27,6 @@ class RotatorTest < Minitest::Test
   end
 
   def test_it_rotates_a_number
-    skip
     letter = "2"
     key = "1".to_i
     offset = 9
@@ -79,10 +78,11 @@ class RotatorTest < Minitest::Test
     assert_equal 'cad.', rotator.rotate_message(message, key, offset)
   end
 
-  # def test_it_rotates_two_characters_with_different_rotations
-  #   chunk = "ab"
-  #   message = rotator.parse(chunk)
-  #   assert_equal ''
-  # end
+  def test_it_rotates_two_characters_with_different_rotations
+    skip
+    chunk = "ab"
+    message = rotator.parse(chunk)
+    assert_equal 'od', rotator.rotate_message(message, total_rotate_a, total_rotate_b)
+  end
 
 end
