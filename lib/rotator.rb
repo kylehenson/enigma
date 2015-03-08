@@ -13,20 +13,28 @@ class Rotator
   end
 
   def for_key(letter, total_rotate)
-    new_index = (map.index(letter) + total_rotate) % 39
+    new_index = (map.index(letter) + total_rotate) % map.length
 
     map[new_index]
   end
 
-  def parse(chunk)
-    @message = chunk.chars
-  end
+  def rotate_message(message)
+    chunks        = message.scan(/.{1,4}/)
+    master_key    = Key.new.rotations
+    master_offset = Offset.new.offset
 
-  def rotate_message(message, key, offset)
-    split_rotation = message.map do |character|
-      rotate(character, key, offset)
+    combinations = chunks.flat_map do |chunk|
+      chunk.chars.zip(master_key, master_offset)
     end
-    split_rotation.join
+
+    scrambled_characters = combinations.map do |combination|
+      character     = combination[0]
+      unique_key    = combination[1]
+      unique_offset = combination[2]
+      rotate(character, unique_key, unique_offset)
+    end
+
+    scrambled_characters.join
   end
 
 end

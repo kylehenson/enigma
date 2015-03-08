@@ -20,21 +20,4 @@ class OffsetTest < Minitest::Test
   def test_it_finds_last_four_digits_of_squared_date
     assert_equal [9, 2, 2, 5], offset.offset_sequence
   end
-
-  def test_it_can_find_offset_A
-    assert_equal 9, offset.offset_a
-  end
-
-  def test_it_can_find_offset_B
-    assert_equal 2, offset.offset_b
-  end
-
-  def test_it_can_find_offset_C
-    assert_equal 2, offset.offset_c
-  end
-
-  def test_it_can_find_offset_D
-    assert_equal 5, offset.offset_d
-  end
-
 end

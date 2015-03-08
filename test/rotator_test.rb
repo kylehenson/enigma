@@ -1,16 +1,28 @@
 require_relative 'test_helper'
 require_relative '../lib/rotator'
+require_relative '../lib/key'
+require_relative '../lib/offset'
+require 'pry'
+require 'pry-byebug'
 
 class RotatorTest < Minitest::Test
-  attr_accessor :rotator
+  attr_accessor :rotator, :mock_key, :mock_offset
 
   def setup
     @rotator = Rotator.new
+    
+    @mock_key = MiniTest::Mock.new
+    @mock_key.expect(:rotations, [12, 23, 34, 45])
+
+    @mock_offset = MiniTest::Mock.new
+    @mock_offset.expect(:offset, [1, 2, 3, 4])
   end
 
   def test_it_exists
     assert rotator
   end
+
+  # rotate method
 
   def test_it_rotates_a_letter
     letter = "a"
@@ -54,35 +66,46 @@ class RotatorTest < Minitest::Test
     assert_equal 'h', rotator.rotate(letter, key, offset)
   end
 
-  def test_it_rotates_two_letters
-    chunk = "ab"
-    message = rotator.parse(chunk)
-    key = "9".to_i
-    offset = 1
-    assert_equal 'kl', rotator.rotate_message(message, key, offset)
+  # rotate_message
+
+  def test_it_rotates_a_single_chunk_with_one_letter
+    Offset.stub(:new, mock_offset) do
+      Key.stub(:new, mock_key) do
+        assert_equal 'n', rotator.rotate_message('a')
+      end
+    end
   end
 
-  def test_it_rotates_three_letters
-    chunk = ", a"
-    message = rotator.parse(chunk)
-    key = "2".to_i
-    offset = 1
-    assert_equal 'cad', rotator.rotate_message(message, key, offset)
+  def test_it_rotates_a_single_chunk_with_two_characters
+    Offset.stub(:new, mock_offset) do
+      Key.stub(:new, mock_key) do
+        assert_equal 'nn', rotator.rotate_message('a1')
+      end
+    end
   end
 
-  def test_it_rotates_four_letters
-    chunk = ", a8"
-    message = rotator.parse(chunk)
-    key = "2".to_i
-    offset = 1
-    assert_equal 'cad.', rotator.rotate_message(message, key, offset)
+  def test_it_rotates_a_single_chunk_with_three_characters
+    Offset.stub(:new, mock_offset) do
+      Key.stub(:new, mock_key) do
+        assert_equal 'n0z', rotator.rotate_message('ab1')
+      end
+    end
   end
 
-  def test_it_rotates_two_characters_with_different_rotations
-    skip
-    chunk = "ab"
-    message = rotator.parse(chunk)
-    assert_equal 'od', rotator.rotate_message(message, total_rotate_a, total_rotate_b)
+  def test_it_rotates_a_single_chunk_with_four_characters
+    Offset.stub(:new, mock_offset) do
+      Key.stub(:new, mock_key) do
+        assert_equal 'n0zj', rotator.rotate_message('ab1,')
+      end
+    end
+  end
+
+  def test_it_rotates_two_chunks
+    Offset.stub(:new, mock_offset) do
+      Key.stub(:new, mock_key) do
+        assert_equal 'n0a.cy9h', rotator.rotate_message('abc12,. ')
+      end
+    end
   end
 
 end

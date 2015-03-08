@@ -23,7 +23,7 @@ class Key
 
   def rotations
     compile = compile_key
-    {'A' => compile[0], 'B' => compile[1], 'C' => compile[2], 'D' => compile[3]}
+    [compile[0], compile[1], compile[2], compile[3]]
   end
 
 
@@ -68,6 +68,3 @@ class Key
 #   end
 #
 end
-
-@key = Key.new
-print @key.compile_key

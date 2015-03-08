@@ -24,7 +24,7 @@ class KeyTest < Minitest::Test
   end
 
   def test_it_names_rotations
-    assert @key.rotations.is_a?(Hash)
+    assert @key.rotations.is_a?(Array)
     assert_equal 4, @key.rotations.size
   end
 

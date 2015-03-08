@@ -1,21 +1,15 @@
 class Offset
-  attr_accessor :offset_a,
-                :offset_b,
-                :offset_c,
-                :offset_d
+  require 'date'
 
-  def initialize(date)
-    @date = date
-    create
+  attr_accessor :offset
+
+  def initialize(date = nil)
+    @date = date || Date.today.strftime('%d%m%y')
+    generate_offset
   end
 
-  def create
-    digits = offset_sequence
-
-    @offset_a = digits.shift
-    @offset_b = digits.shift
-    @offset_c = digits.shift
-    @offset_d = digits.shift
+  def generate_offset
+    self.offset = offset_sequence
   end
 
   def square
