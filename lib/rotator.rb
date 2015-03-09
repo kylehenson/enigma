@@ -1,4 +1,6 @@
 require_relative 'character_map'
+require_relative 'key'
+require_relative 'offset'
 class Rotator
 
   attr_reader :total_rotate, :map, :new_map, :message
@@ -7,13 +9,13 @@ class Rotator
     @map = CharacterMap.characters
   end
 
-  def rotate(letter, key, offset)
-    @total_rotate = key + offset
-    for_key(letter, total_rotate)
+  def rotate(character, key, offset)
+    total_rotate = key + offset
+    for_key(character, total_rotate)
   end
 
-  def for_key(letter, total_rotate)
-    new_index = (map.index(letter) + total_rotate) % map.length
+  def for_key(character, total_rotate)
+    new_index = (map.index(character) + total_rotate) % map.length
 
     map[new_index]
   end

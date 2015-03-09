@@ -10,7 +10,7 @@ class RotatorTest < Minitest::Test
 
   def setup
     @rotator = Rotator.new
-    
+
     @mock_key = MiniTest::Mock.new
     @mock_key.expect(:rotations, [12, 23, 34, 45])
 
@@ -104,6 +104,14 @@ class RotatorTest < Minitest::Test
     Offset.stub(:new, mock_offset) do
       Key.stub(:new, mock_key) do
         assert_equal 'n0a.cy9h', rotator.rotate_message('abc12,. ')
+      end
+    end
+  end
+
+  def test_it_rotates_three_chunks
+    Offset.stub(:new, mock_offset) do
+      Key.stub(:new, mock_key) do
+        assert_equal 'n0a.cy9hhmxj', rotator.rotate_message('abc12,. 70z,')
       end
     end
   end

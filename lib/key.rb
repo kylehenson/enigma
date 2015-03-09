@@ -5,66 +5,26 @@ class Key
   end
 
   def create_random_key
-    rand_num = []
-    5.times do
-      rand_num << rand(9)
-    end
-    rand_num
+    random_numbers = []
+    5.times { random_numbers << rand(9) }
+    random_numbers
   end
 
   def compile_key
-    rand_key = create_random_key
-    combined_key = create_random_key.map.with_index do |n, index|
-      n.to_s + rand_key[index + 1].to_s if index < 4
-    end
-    combined_key.pop
-    combined_key
+    key_one = create_random_key
+    key_two = create_random_key
+    mash_keys(key_one, key_two)
+  end
+
+  def mash_keys(key_one, key_two)
+    key_one.map.with_index do |number, index|
+      number.to_s + key_two[index + 1].to_s if index < 4
+    end.compact!
   end
 
   def rotations
     compile = compile_key
-    [compile[0], compile[1], compile[2], compile[3]]
+    [compile[0].to_i, compile[1].to_i, compile[2].to_i, compile[3].to_i]
   end
 
-
-
-  # 1. create random key ONCE
-  # 2. take that key and designate a, b, c,d
-  # 3. complie abcd together to pass to other classes
-
-#   def initialize(key = nil)
-#     @key = key
-#     @key_max = 99999
-#   end
-#
-#   def create_key
-#     num = Random.rand(@key_max)
-#     @all_digits = num.to_s.rjust(5,'0')
-#   end
-#
-#   def rotation_a
-#     all_digits = create_key.to_s.chars
-#     all_digits[0] + all_digits[1]
-#   end
-#
-#   def rotation_b
-#     all_digits = create_key.to_s.chars
-#     all_digits[1] + all_digits[2]
-#   end
-#
-#   def rotation_c
-#     all_digits = create_key.to_s.chars
-#     all_digits[2] + all_digits[3]
-#   end
-#
-#   def rotation_d
-#     all_digits = create_key.to_s.chars
-#     all_digits[3] + all_digits[4]
-#   end
-#
-#   def pass_key
-#     create_key
-#     [rotation_a, rotation_b, rotation_c, rotation_d]
-#   end
-#
 end
