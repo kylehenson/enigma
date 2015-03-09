@@ -26,6 +26,3 @@ class Encryptor
   end
 
 end
-
-enc = Encryptor.new('message.txt', 'encrypted.txt')
-enc.encrypt

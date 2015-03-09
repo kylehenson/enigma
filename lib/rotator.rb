@@ -20,23 +20,29 @@ class Rotator
     map[new_index]
   end
 
-  def rotate_message(message)
+  def encrypt_message(message)
     chunks        = message.scan(/.{1,4}/)
     master_key    = Key.new.rotations
     master_offset = Offset.new.offset
 
-    combinations = chunks.flat_map do |chunk|
-      chunk.chars.zip(master_key, master_offset)
-    end
+    combinations = create_combinations(chunks, master_key, master_offset)
 
-    scrambled_characters = combinations.map do |combination|
+    scrambled_characters = set_rotate_parts(combinations)
+
+    scrambled_characters.join
+  end
+
+  def create_combinations(chunks, master_key, master_offset)
+    chunks.flat_map { |chunk| chunk.chars.zip(master_key, master_offset) }
+  end
+
+  def set_rotate_parts(combinations)
+    combinations.map do |combination|
       character     = combination[0]
       unique_key    = combination[1]
       unique_offset = combination[2]
       rotate(character, unique_key, unique_offset)
     end
-
-    scrambled_characters.join
   end
 
 end
