@@ -35,8 +35,8 @@ class Rotator
     chunks        = message.scan(/.{1,4}/)
     master_key    = Key.new.rotations
     master_offset = Offset.new.offset
-print master_key
-print master_offset
+# print master_key
+# print master_offset
     combinations = create_combinations(chunks, master_key, master_offset)
 
     scrambled_characters = set_rotate_parts(combinations)

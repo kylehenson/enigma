@@ -24,7 +24,6 @@ class Key
   end
 
   def rotations
-    binding.pry
     compile = compile_key
     [compile[0].to_i, compile[1].to_i, compile[2].to_i, compile[3].to_i]
   end
