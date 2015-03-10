@@ -26,4 +26,9 @@ class Offset
     chars = square.to_s.chars[-4..-1]
     chars_to_ints(chars)
   end
+
+  def decrypt_offset(date)
+    characters = (date.to_i * date.to_i).to_s.chars[-4..-1]
+    chars_to_ints(characters)
+  end
 end

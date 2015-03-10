@@ -20,4 +20,10 @@ class OffsetTest < Minitest::Test
   def test_it_finds_last_four_digits_of_squared_date
     assert_equal [9, 2, 2, 5], offset.offset_sequence
   end
+
+  def test_it_changes_offset_output_for_decrypt
+    date = "030415"
+
+    assert_equal [2, 2, 2, 5], offset.decrypt_offset(date)
+  end
 end

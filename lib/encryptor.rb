@@ -16,8 +16,7 @@ class Encryptor
   def encrypt
     message = read_lines
     rotator = Rotator.new
-    encrypted_message = rotator.rotate_message(message)
-    puts rotator.total_rotate
+    encrypted_message = rotator.encrypt_message(message)
     output(encrypted_message)
   end
 

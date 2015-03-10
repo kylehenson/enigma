@@ -168,12 +168,12 @@ class RotatorTest < Minitest::Test
     end
   end
 
+  def test_it_rotates_a_chunk_negatively
+    assert_equal '012l', rotator.decrypt_message('abc1', "11111", "030415")
+  end
+
   def test_it_rotates_three_chunks_negatively
-    Offset.stub(:new, mock_offset2) do
-      Key.stub(:new, mock_key2) do
-        assert_equal '0perpna0ub12', rotator.encrypt_message('abc12,. 70z,')
-      end
-    end
+    assert_equal '012lrvxw0f32', rotator.decrypt_message('abc148 ,asdf', "11111", "030415")
   end
 
 end

@@ -28,4 +28,10 @@ class KeyTest < Minitest::Test
     assert_equal 4, @key.rotations.size
   end
 
+  def test_it_changes_key_output_for_decrypt
+    key_code = "12345"
+
+    assert_equal [12, 23, 34, 45], key.decrypt_code(key_code)
+  end
+
 end
