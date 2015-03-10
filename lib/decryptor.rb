@@ -1,4 +1,4 @@
-require 'rotator'
+require_relative './rotator'
 
 class Decryptor
   attr_reader :input_file_name
@@ -17,7 +17,7 @@ class Decryptor
   def decrypt
     message = read_lines
     rotator = Rotator.new
-    decrypted_message = rotator.decrypt_message(message, key, date)
+    decrypted_message = rotator.decrypt_message(message, @key, @date)
     output(decrypted_message)
   end
 

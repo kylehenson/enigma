@@ -7,6 +7,8 @@ class Rotator
 
   def initialize
     @map = CharacterMap.characters
+    @key = Key.new
+    @date = Offset.new
   end
 
   def rotate(character, key, offset)
@@ -33,10 +35,9 @@ class Rotator
 
   def encrypt_message(message)
     chunks        = message.scan(/.{1,4}/)
-    master_key    = Key.new.rotations
-    master_offset = Offset.new.offset
-# print master_key
-# print master_offset
+    master_key    = @key.rotations
+    master_offset = @date.offset
+    puts "Created 'encrypted.txt' with the key #{@key.key.join} and date #{@date.date}"
     combinations = create_combinations(chunks, master_key, master_offset)
 
     scrambled_characters = set_rotate_parts(combinations)

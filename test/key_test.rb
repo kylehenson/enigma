@@ -19,10 +19,6 @@ class KeyTest < Minitest::Test
     refute_equal key1, key2
   end
 
-  def test_it_compiles_key
-    assert_equal 4, @key.compile_key.size
-  end
-
   def test_it_names_rotations
     assert @key.rotations.is_a?(Array)
     assert_equal 4, @key.rotations.size

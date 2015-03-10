@@ -2,9 +2,10 @@ class Offset
   require 'date'
 
   attr_accessor :offset
+  attr_reader   :date
 
   def initialize(date = nil)
-    @date = date || Date.today.strftime('%d%m%y')
+    @date = date || Date.today.strftime('%m%d%y')
     generate_offset
   end
 

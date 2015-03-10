@@ -1,5 +1,7 @@
 require 'pry'
+require 'pry-byebug'
 class Key
+  attr_reader :key
 
   def initialize(key = nil)
     @key = key
@@ -11,20 +13,17 @@ class Key
     random_numbers
   end
 
-  def compile_key
-    key_one = create_random_key
-    key_two = create_random_key
-    mash_keys(key_one, key_two)
-  end
-
-  def mash_keys(key_one, key_two)
-    key_one.map.with_index do |number, index|
-      number + key_two[index + 1] if index < 4
+  def mash_keys
+    new_key = []
+    @key = create_random_key
+    @key.each_with_index do |number, index|
+      new_key << number.to_s + key[index + 1].to_s if index < 4
     end.compact!
+    new_key
   end
 
   def rotations
-    compile = compile_key
+    compile = mash_keys
     [compile[0].to_i, compile[1].to_i, compile[2].to_i, compile[3].to_i]
   end
 
