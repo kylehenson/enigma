@@ -15,6 +15,7 @@ class Decryptor
   end
 
   def decrypt
+    puts "Created 'decrypted.txt' with the key #{@key} and date #{@date}"
     message = read_lines
     rotator = Rotator.new
     decrypted_message = rotator.decrypt_message(message, @key, @date)
