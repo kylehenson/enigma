@@ -11,18 +11,18 @@ class RotatorTest < Minitest::Test
   def setup
     @rotator = Rotator.new
 
-    @mock_key = MiniTest::Mock.new
-    @mock_key.expect(:rotations, [12, 23, 34, 45])
-
-    @mock_offset = MiniTest::Mock.new
-    @mock_offset.expect(:offset, [1, 2, 3, 4])
-
-
-    @mock_key2 = MiniTest::Mock.new
-    @mock_key2.expect(:rotations, [-12, -23, -34, -45])
-
-    @mock_offset2 = MiniTest::Mock.new
-    @mock_offset2.expect(:offset, [-1, -2, -3, -4])
+    # @mock_key = MiniTest::Mock.new
+    # @mock_key.expect(:rotations, [12, 23, 34, 45])
+    #
+    # @mock_offset = MiniTest::Mock.new
+    # @mock_offset.expect(:offset, [1, 2, 3, 4])
+    #
+    #
+    # @mock_key2 = MiniTest::Mock.new
+    # @mock_key2.expect(:rotations, [-12, -23, -34, -45])
+    #
+    # @mock_offset2 = MiniTest::Mock.new
+    # @mock_offset2.expect(:offset, [-1, -2, -3, -4])
   end
 
   def test_it_exists
@@ -101,11 +101,11 @@ class RotatorTest < Minitest::Test
   #   master_offset = [2, 2, 2, 2]
   #
   #   assert_equal 'e', rotator.encrypt_message('a')
-  #   # Offset.stub(:new, mock_offset) do
-  #   #   Key.stub(:new, mock_key) do
-  #   #     assert_equal 'n', rotator.encrypt_message('a')
-  #   #   end
-  #   # end
+  #   Offset.stub(:new, mock_offset) do
+  #     Key.stub(:new, mock_key) do
+  #       assert_equal 'n', rotator.encrypt_message('a')
+  #     end
+  #   end
   # end
   #
   # def test_it_rotates_a_single_chunk_with_one_letter_negatively

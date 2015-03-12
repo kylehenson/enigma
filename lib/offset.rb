@@ -1,16 +1,15 @@
 class Offset
   require 'date'
 
-  attr_accessor :offset
-  attr_reader   :date
+  attr_reader :date, :offset
 
-  def initialize(date = nil)
-    @date = date || Date.today.strftime('%m%d%y')
+  def initialize(date = Date.today.strftime('%m%d%y'))
+    @date = date
     generate_offset
   end
 
   def generate_offset
-    self.offset = offset_sequence
+    @offset = offset_sequence
   end
 
   def square
