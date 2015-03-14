@@ -6,42 +6,24 @@ require 'pry'
 require 'pry-byebug'
 
 class RotatorTest < Minitest::Test
-  attr_accessor :rotator, :mock_key, :mock_offset, :mock_key2, :mock_offset2
-
-  def setup
-    @rotator = Rotator.new
-
-    # @mock_key = MiniTest::Mock.new
-    # @mock_key.expect(:rotations, [12, 23, 34, 45])
-    #
-    # @mock_offset = MiniTest::Mock.new
-    # @mock_offset.expect(:offset, [1, 2, 3, 4])
-    #
-    #
-    # @mock_key2 = MiniTest::Mock.new
-    # @mock_key2.expect(:rotations, [-12, -23, -34, -45])
-    #
-    # @mock_offset2 = MiniTest::Mock.new
-    # @mock_offset2.expect(:offset, [-1, -2, -3, -4])
-  end
 
   def test_it_exists
-    assert rotator
+    assert Rotator
   end
-
-  # rotate method
 
   def test_it_rotates_a_letter
     letter = "a"
     key = "9".to_i
     offset = 1
+    rotator = Rotator.new('+')
     assert_equal 'k', rotator.rotate(letter, key, offset)
   end
 
   def test_it_negatively_rotates_a_letter
     letter = "a"
-    key = "-9".to_i
-    offset = -1
+    key = "9".to_i
+    offset = 1
+    rotator = Rotator.new('-')
     assert_equal '3', rotator.rotate(letter, key, offset)
   end
 
@@ -49,6 +31,7 @@ class RotatorTest < Minitest::Test
     letter = "d"
     key = "1".to_i
     offset = 9
+    rotator = Rotator.new('+')
     assert_equal 'n', rotator.rotate(letter, key, offset)
   end
 
@@ -56,6 +39,7 @@ class RotatorTest < Minitest::Test
     letter = "2"
     key = "1".to_i
     offset = 9
+    rotator = Rotator.new('+')
     assert_equal ",", rotator.rotate(letter, key, offset)
   end
 
@@ -63,121 +47,82 @@ class RotatorTest < Minitest::Test
     letter = "."
     key = "1".to_i
     offset = 9
+    rotator = Rotator.new('+')
     assert_equal 'i', rotator.rotate(letter, key, offset)
   end
 
   def test_it_rotates_a_character_negatively
     letter = "."
-    key = "-3".to_i
-    offset = -9
+    key = "3".to_i
+    offset = 9
+    rotator = Rotator.new('-')
     assert_equal 'z', rotator.rotate(letter, key, offset)
-  end
-
-  def test_it_rotates_another_letter
-    letter = "d"
-    key = "10".to_i
-    offset = 23
-    assert_equal ' ', rotator.rotate(letter, key, offset)
   end
 
   def test_it_rotates_number_higher_than_map_count
     letter = "d"
     key = "20".to_i
     offset = 23
+    rotator = Rotator.new('+')
     assert_equal 'h', rotator.rotate(letter, key, offset)
   end
 
   def test_it_rotates_number_higher_than_map_count_negatively
     letter = "d"
-    key = "-20".to_i
-    offset = -23
+    key = "20".to_i
+    offset = 23
+    rotator = Rotator.new('-')
     assert_equal ',', rotator.rotate(letter, key, offset)
   end
 
-  # rotate_message
+  def test_it_can_rotate_without_explicit_offset
+    letter = 'd'
+    key = 5
+    rotator = Rotator.new('+')
+    assert_equal 'i', rotator.rotate(letter,key)
+  end
 
-  # def test_it_rotates_a_single_chunk_with_one_letter
-  #   master_key = [2, 2, 2, 2]
-  #   master_offset = [2, 2, 2, 2]
-  #
-  #   assert_equal 'e', rotator.encrypt_message('a')
-  #   Offset.stub(:new, mock_offset) do
-  #     Key.stub(:new, mock_key) do
-  #       assert_equal 'n', rotator.encrypt_message('a')
-  #     end
-  #   end
-  # end
-  #
-  # def test_it_rotates_a_single_chunk_with_one_letter_negatively
-  #   Offset.stub(:new, mock_offset2) do
-  #     Key.stub(:new, mock_key2) do
-  #       assert_equal '0', rotator.encrypt_message('a')
-  #     end
-  #   end
-  # end
-  #
-  # def test_it_rotates_a_single_chunk_with_two_characters
-  #   Offset.stub(:new, mock_offset) do
-  #     Key.stub(:new, mock_key) do
-  #       assert_equal 'nn', rotator.encrypt_message('a1')
-  #     end
-  #   end
-  # end
-  #
-  # def test_it_rotates_a_single_chunk_with_two_characters_negatively
-  #   Offset.stub(:new, mock_offset2) do
-  #     Key.stub(:new, mock_key2) do
-  #       assert_equal '0c', rotator.encrypt_message('a1')
-  #     end
-  #   end
-  # end
-  #
-  # def test_it_rotates_a_single_chunk_with_three_characters
-  #   Offset.stub(:new, mock_offset) do
-  #     Key.stub(:new, mock_key) do
-  #       assert_equal '3iw', rotator.encrypt_message('ab1')
-  #     end
-  #   end
-  # end
-  #
-  # def test_it_rotates_a_single_chunk_with_four_characters
-  #   Offset.stub(:new, mock_offset) do
-  #     Key.stub(:new, mock_key) do
-  #       assert_equal 'n0zj', rotator.encrypt_message('ab1,')
-  #     end
-  #   end
-  # end
-  #
-  # def test_it_rotates_two_chunks
-  #   Offset.stub(:new, mock_offset) do
-  #     Key.stub(:new, mock_key) do
-  #       assert_equal 'n0a.cy9h', rotator.encrypt_message('abc12,. ')
-  #     end
-  #   end
-  # end
-  #
-  # def test_it_rotates_two_chunks_negatively
-  #   Offset.stub(:new, mock_offset2) do
-  #     Key.stub(:new, mock_key2) do
-  #       assert_equal '0perpna0', rotator.encrypt_message('abc12,. ')
-  #     end
-  #   end
-  # end
-  #
-  # def test_it_rotates_three_chunks
-  #   Offset.stub(:new, mock_offset) do
-  #     Key.stub(:new, mock_key) do
-  #       assert_equal 'kks3,io,e9cb"', rotator.encrypt_message('abc12,. 70z,')
-  #     end
-  #   end
-  # end
-  #
-  # def test_it_rotates_a_chunk_negatively
-  #   assert_equal '012l', rotator.decrypt_message('abc1', "11111", "030415")
-  # end
-  #
-  # def test_it_rotates_three_chunks_negatively
-  #   assert_equal '012lrvxw0f32', rotator.decrypt_message('abc148 ,asdf', "11111", "030415")
-  # end
+  def test_it_can_calculate_an_index
+    assert_equal 5, Rotator.new('+').calculate_index('a', 5)
+  end
 
+  def test_it_can_create_combinations
+    chunks = ["abcd"]
+    master_key = [74,41,18,82]
+    master_offset = [9,2,2,5]
+
+    assert_equal [["a", 74, 9],["b", 41, 2],["c", 18, 2],["d", 82, 5]], Rotator.new('+').create_combinations(chunks, master_key, master_offset)
+  end
+
+  def test_it_can_create_combinations_without_explicit_offset
+    chunks = ["abcd"]
+    master_key = [74,41,18,82]
+
+    assert_equal [["a", 74],["b", 41],["c", 18],["d", 82]], Rotator.new('+').create_combinations(chunks, master_key)
+  end
+
+  def test_it_can_set_rotate_parts
+    rotator = Rotator.new('+')
+
+    combinations = ["f", 74, 9],["r", 41, 2],["i", 18, 2],["d", 82, 5]
+
+    assert_equal ["k","v","2","m"],rotator.set_rotate_parts(combinations)
+  end
+
+  def test_it_can_set_rotate_parts_for_decryption
+    rotator = Rotator.new('-')
+
+    combinations = ["f", 74, 9],["r", 41, 2],["i", 18, 2],["d", 82, 5]
+
+    assert_equal ["a","n","1","7"],rotator.set_rotate_parts(combinations)
+  end
+
+  def test_it_can_combine_key_and_offset
+    rotator = Rotator.new('+')
+
+    key = [74, 41, 18, 82]
+    date = [9,2,2,5]
+
+    assert_equal [83, 43, 20, 87], rotator.combine_key_and_offset(key,date)
+  end
 end

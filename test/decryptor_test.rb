@@ -21,32 +21,16 @@ class DecryptorTest < Minitest::Test
     assert Decryptor.new('encrypted.txt', 'decrypted', 12345, 9225)
   end
 
-  def test_it_can_read_contents_of_file
-    decryptor = Decryptor.new("test_file.txt", "test_encrypted.txt", 12345, 9225)
+  def test_it_can_decrypt
+    decryptor = Decryptor.new("encrypted.txt", "decryptor.txt", "12345", "9225")
 
-    assert_equal "a cookie a day", decryptor.read_lines
+    assert_equal 8, decryptor.decrypt.size
   end
 
-  def test_it_can_read_contents_of_another_file
-    decryptor = Decryptor.new("test_file2.txt", "test_encrypted.txt", 12345, 9225)
+  def test_it_can_decrypt_a_message
+    decryptor = Decryptor.new("encrypted.txt", "decryptor.txt", "12345", "9225")
 
-    assert_equal "one more cookie a day", decryptor.read_lines
-  end
-
-  def test_when_call_output_it_writes_contents_of_file
-    decryptor = Decryptor.new("encrypted.txt", "decryptor.txt", 12345, 9225)
-
-    decrypted_message = "get to the gym"
-
-    assert_equal 14, decryptor.output(decrypted_message)
-  end
-
-  def test_when_call_output_it_overwrites_content_of_output_file
-    decryptor = Decryptor.new("encrypted.txt", "decryptor.txt", 12345, 9225)
-
-    decrypted_message = "no more cookies"
-
-    assert_equal 15, decryptor.output(decrypted_message)
+    assert decryptor.decrypt_message(Rotator.new('-'))
   end
 
 end
